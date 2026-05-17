@@ -1,0 +1,63 @@
+{
+  "config": "{\"version\":\"5.47\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY23SU08\",\"version\":\"5.48\",\"type\":2}},\"activeSectionIndex\":1,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":2,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY23SU08",
+            "path": "BaseThemes/CY23SU08.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Page 1",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSection",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"8b8686f9d8845cd89513\",\"layouts\":[{\"id\":0,\"position\":{\"x\":951.5044247787611,\"y\":0,\"z\":0,\"width\":281.29793510324487,\"height\":279.4100294985251,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"donutChart\",\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 279.41,
+          "width": 281.30,
+          "x": 951.50,
+          "y": 0.00,
+          "z": 0.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "Page 2",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSection65cb305c3c5de558ad3c",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"50db6d2c2225b4b2e671\",\"layouts\":[{\"id\":0,\"position\":{\"x\":405.89970501474926,\"y\":464.424778761062,\"z\":0,\"width\":770.2654867256638,\"height\":232.212389380531,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Rows\":[{\"queryRef\":\"fact_table.item_key\",\"active\":true}],\"Values\":[{\"queryRef\":\"Sum(fact_table.quantity)\"}],\"Columns\":[{\"queryRef\":\"fact_table.store_key\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"fact_table\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"item_key\"},\"Name\":\"fact_table.item_key\",\"NativeReferenceName\":\"item_key\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"quantity\"}},\"Function\":0},\"Name\":\"Sum(fact_table.quantity)\",\"NativeReferenceName\":\"Sum of quantity\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"store_key\"},\"Name\":\"fact_table.store_key\",\"NativeReferenceName\":\"store_key\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 232.21,
+          "width": 770.27,
+          "x": 405.90,
+          "y": 464.42,
+          "z": 0.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}
