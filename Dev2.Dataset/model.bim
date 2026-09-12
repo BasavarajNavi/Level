@@ -1,5 +1,5 @@
 {
-  "compatibilityLevel": 1550,
+  "compatibilityLevel": 1606,
   "model": {
     "annotations": [
       {
@@ -11,12 +11,8 @@
         "value": "1"
       },
       {
-        "name": "PBIDesktopVersion",
-        "value": "2.121.644.0 (23.09)"
-      },
-      {
         "name": "PBI_ProTooling",
-        "value": "[\"DevMode\"]"
+        "value": "[\"DevMode\",\"TMDLView_Desktop\"]"
       }
     ],
     "culture": "en-US",
@@ -25,7 +21,6 @@
         "name": "en-US",
         "linguisticMetadata": {
           "content": {
-            "DynamicImprovement": "HighConfidence",
             "Language": "en-US",
             "Version": "1.0.0"
           },
@@ -155,7 +150,6 @@
             ],
             "dataCategory": "PaddedDateTableDates",
             "dataType": "dateTime",
-            "formatString": "General Date",
             "isHidden": true,
             "isNameInferred": true,
             "lineageTag": "14aebd8b-d741-42a0-b079-5dd599823d34",
@@ -178,7 +172,6 @@
             "dataCategory": "Years",
             "dataType": "int64",
             "expression": "YEAR([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "5e3071e0-88c2-45c2-8d06-3ec355b152ed",
             "summarizeBy": "none",
@@ -199,7 +192,6 @@
             "dataCategory": "MonthOfYear",
             "dataType": "int64",
             "expression": "MONTH([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "ecf89165-4c23-4fb2-bf7f-921e5a35ace9",
             "summarizeBy": "none",
@@ -241,7 +233,6 @@
             "dataCategory": "QuarterOfYear",
             "dataType": "int64",
             "expression": "INT(([MonthNo] + 2) / 3)",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "236b1f5d-9136-40e8-886b-4e21d1404cf6",
             "summarizeBy": "none",
@@ -283,7 +274,6 @@
             "dataCategory": "DayOfMonth",
             "dataType": "int64",
             "expression": "DAY([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "fc7bbfe1-199e-41a3-883f-c3c96af015f0",
             "summarizeBy": "none",

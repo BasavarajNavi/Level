@@ -1,0 +1,283 @@
+createOrReplace
+
+	model Model
+		culture: en-US
+		defaultPowerBIDataSourceVersion: powerBI_V3
+		sourceQueryCulture: en-IN
+		dataAccessOptions
+			legacyRedirects
+			returnErrorValuesAsNull
+
+		table customer_dim
+			lineageTag: 7e6112aa-c30e-4537-814f-182eaf1bfc85
+
+			column coustomer_key
+				dataType: string
+				lineageTag: ff2340a2-8ccf-47a0-820d-400d850ddae8
+				summarizeBy: none
+				sourceColumn: coustomer_key
+
+				annotation SummarizationSetBy = Automatic
+
+			column name
+				dataType: string
+				lineageTag: fd8bec9e-d404-4fd3-9e8a-6b8df10bd58c
+				summarizeBy: none
+				sourceColumn: name
+
+				annotation SummarizationSetBy = Automatic
+
+			column contact_no
+				dataType: int64
+				formatString: 0
+				lineageTag: e4e8e6ea-b4be-4fd1-8fb3-fc776efa2e61
+				summarizeBy: none
+				sourceColumn: contact_no
+
+				annotation SummarizationSetBy = Automatic
+
+			column nid
+				dataType: int64
+				formatString: 0
+				lineageTag: 87b4d9dc-e06e-4309-898c-7e894a45b8d1
+				summarizeBy: none
+				sourceColumn: nid
+
+				annotation SummarizationSetBy = Automatic
+
+			partition customer_dim = m
+				mode: import
+				source =
+						let
+						    Source = Csv.Document(File.Contents("C:\Users\bnavi\Desktop\Projects\E-Commerce\customer_dim.csv"),[Delimiter=",", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+						    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+						    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"coustomer_key", type text}, {"name", type text}, {"contact_no", Int64.Type}, {"nid", Int64.Type}})
+						in
+						    #"Changed Type"
+
+			annotation PBI_ResultType = Table
+
+		table DateTableTemplate_7e214577-55a2-4e19-91d8-2788d1ad4ffb
+			isHidden
+			isPrivate
+			lineageTag: 4a318b8e-5f42-42ee-ba76-f24ef7cd2469
+
+			column Date
+				dataType: dateTime
+				isHidden
+				lineageTag: 14aebd8b-d741-42a0-b079-5dd599823d34
+				dataCategory: PaddedDateTableDates
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: [Date]
+
+				annotation SummarizationSetBy = User
+
+			column Year = YEAR([Date])
+				dataType: int64
+				isHidden
+				lineageTag: 5e3071e0-88c2-45c2-8d06-3ec355b152ed
+				dataCategory: Years
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Year
+
+			column MonthNo = MONTH([Date])
+				dataType: int64
+				isHidden
+				lineageTag: ecf89165-4c23-4fb2-bf7f-921e5a35ace9
+				dataCategory: MonthOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = MonthNumber
+
+			column Month = FORMAT([Date], "MMMM")
+				dataType: string
+				isHidden
+				lineageTag: eded809c-b16b-4265-a9d4-f20637173d80
+				dataCategory: Months
+				summarizeBy: none
+				sortByColumn: MonthNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Month
+
+			column QuarterNo = INT(([MonthNo] + 2) / 3)
+				dataType: int64
+				isHidden
+				lineageTag: 236b1f5d-9136-40e8-886b-4e21d1404cf6
+				dataCategory: QuarterOfYear
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = QuarterNumber
+
+			column Quarter = "Qtr " & [QuarterNo]
+				dataType: string
+				isHidden
+				lineageTag: 96503668-56ae-406a-9e68-6bba6e709d42
+				dataCategory: Quarters
+				summarizeBy: none
+				sortByColumn: QuarterNo
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Quarter
+
+			column Day = DAY([Date])
+				dataType: int64
+				isHidden
+				lineageTag: fc7bbfe1-199e-41a3-883f-c3c96af015f0
+				dataCategory: DayOfMonth
+				summarizeBy: none
+
+				annotation SummarizationSetBy = User
+
+				annotation TemplateId = Day
+
+			hierarchy 'Date Hierarchy'
+				lineageTag: 21c0dcf9-5d3b-4f1b-8784-9d00994d842a
+
+				level Year
+					lineageTag: 0ffb151f-b481-4d6c-8755-c12c036e7dd9
+					column: Year
+
+				level Quarter
+					lineageTag: a642e7c1-4d01-4752-9f4b-63f4b465b36a
+					column: Quarter
+
+				level Month
+					lineageTag: 06a06cdd-7ee1-4c71-9193-9728faa236e2
+					column: Month
+
+				level Day
+					lineageTag: cd8ac20e-e355-4825-be19-059ad2a1cbc8
+					column: Day
+
+				annotation TemplateId = DateHierarchy
+
+			partition DateTableTemplate_7e214577-55a2-4e19-91d8-2788d1ad4ffb = calculated
+				mode: import
+				source = Calendar(Date(2015,1,1), Date(2015,1,1))
+
+			annotation __PBI_TemplateDateTable = true
+
+			annotation DefaultItem = DateHierarchy
+
+		table fact_table
+			lineageTag: c78f85c0-7bc2-4afe-9bab-6fab8e97df75
+
+			column payment_key
+				dataType: string
+				lineageTag: 247d3d35-3771-4d4d-b01e-2a6b7feb7325
+				summarizeBy: none
+				sourceColumn: payment_key
+
+				annotation SummarizationSetBy = Automatic
+
+			column coustomer_key
+				dataType: string
+				lineageTag: 93b87273-7a8c-4b4c-ac3d-8d92ebf5ded8
+				summarizeBy: none
+				sourceColumn: coustomer_key
+
+				annotation SummarizationSetBy = Automatic
+
+			column time_key
+				dataType: string
+				lineageTag: 335b63b3-225a-4bdc-82b0-c4ac869a05a3
+				summarizeBy: none
+				sourceColumn: time_key
+
+				annotation SummarizationSetBy = Automatic
+
+			column item_key
+				dataType: string
+				lineageTag: b4789b96-66c2-4175-b017-3d035fcf98a8
+				summarizeBy: none
+				sourceColumn: item_key
+
+				annotation SummarizationSetBy = Automatic
+
+			column store_key
+				dataType: string
+				lineageTag: c0a7fce3-d611-4914-a396-9a299a1f6d31
+				summarizeBy: none
+				sourceColumn: store_key
+
+				annotation SummarizationSetBy = Automatic
+
+			column quantity
+				dataType: int64
+				formatString: 0
+				lineageTag: 7f5dbbb6-8c97-4079-b6c6-2ddd3299a804
+				summarizeBy: sum
+				sourceColumn: quantity
+
+				annotation SummarizationSetBy = Automatic
+
+			column unit
+				dataType: string
+				lineageTag: cea8c97a-11e4-47c9-99ba-c410ee7c958f
+				summarizeBy: none
+				sourceColumn: unit
+
+				annotation SummarizationSetBy = Automatic
+
+			column unit_price
+				dataType: double
+				lineageTag: f3be5a59-316b-4770-8c78-ec6b499a2a15
+				summarizeBy: sum
+				sourceColumn: unit_price
+
+				annotation SummarizationSetBy = Automatic
+
+				annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+			column total_price
+				dataType: double
+				lineageTag: 1179c1e5-55c4-41fa-90e9-afe7c9c17551
+				summarizeBy: sum
+				sourceColumn: total_price
+
+				annotation SummarizationSetBy = Automatic
+
+				annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+			partition fact_table = m
+				mode: import
+				source =
+						let
+						    Source = Csv.Document(File.Contents("C:\Users\bnavi\Desktop\Projects\E-Commerce\fact_table.csv"),[Delimiter=",", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+						    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+						    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"payment_key", type text}, {"coustomer_key", type text}, {"time_key", type text}, {"item_key", type text}, {"store_key", type text}, {"quantity", Int64.Type}, {"unit", type text}, {"unit_price", type number}, {"total_price", type number}})
+						in
+						    #"Changed Type"
+
+			annotation PBI_ResultType = Table
+
+		relationship 67711521-9431-4ed5-8978-d14b8451811b
+			fromColumn: fact_table.coustomer_key
+			toColumn: customer_dim.coustomer_key
+
+		cultureInfo en-US
+
+			linguisticMetadata =
+					{
+					  "Language": "en-US",
+					  "Version": "1.0.0"
+					}
+				contentType: json
+
+		annotation PBI_QueryOrder = ["customer_dim","fact_table"]
+
+		annotation __PBI_TimeIntelligenceEnabled = 1
+
+		annotation PBI_ProTooling = ["DevMode","TMDLView_Desktop"]
+
